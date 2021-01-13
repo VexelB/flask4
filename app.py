@@ -1,7 +1,7 @@
 from flask import Flask, url_for
 from flask import render_template
 from flask import request
-import sqlite3
+import csv
 
 # virtualenv env # создание вирт. окружение
 # source env/bin/activate
@@ -44,15 +44,20 @@ app.add_url_rule('/command/<id>', 'command', command)
 
 @app.route('/add/message', methods=['POST'])
 def add_message():
-	db = sqlite3.connect('database.db')
-	cursor = db.cursor()
-	db.execute('INSERT INTO messages VALUES ("{}", "{}")'.format(
-		request.form['username'],
-		request.form['msgtxt']
-		))
-	db.commit()
-	db.close()
-
+	f = 'database.csv'
+	with open(f, 'w') as csvfile:
+        fieldnames = ['№ of process', 'RANDOM VALUE']
+        csv_writer = csv.writer(
+            csvfile, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL
+            )
+        csv_writer.writerow(fieldnames)
+	with open(f, 'a') as csvfile:
+        csv_writer = csv.writer(
+            csvfile, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL
+            )
+        for i in range(n_iter):
+            n = random.randint(a, b)
+            csv_writer.writerow([request.form['username'], request.form['msgtxt']])
 	return 'adding message'
 
 
