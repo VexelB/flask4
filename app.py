@@ -46,7 +46,7 @@ app.add_url_rule('/command/<id>', 'command', command)
 def add_message():
 	f = 'database.csv'
 	with open(f, 'w') as csvfile:
-        fieldnames = ['№ of process', 'RANDOM VALUE']
+        fieldnames = ['author', 'message']
         csv_writer = csv.writer(
             csvfile, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL
             )
